@@ -175,8 +175,6 @@ Specifically:
 - The track is one uninterrupted region. `::slider-segment(1)` addresses it; `::slider-fill` does not apply, since there is no thumb to fill up to.
 - Nothing is submitted, because submission comes from the child inputs. This is the same rule as a `<rangegroup>` whose children are all disabled, though the reason differs: there are no entries rather than excluded entries.
 
-The alternative considered was to have an empty group imply a single default thumb, the way `<input type="range">` with no `min`/`max` gives you one thumb between 0 and 100. That was rejected: an implied thumb has no backing `<input type="range">`, so the author loses the element, its IDL, its `name`, and its value in form submission, which makes it meaningfully different from a group of one rather than a shorthand for it.
-
 The empty track also gives scripted groups a coherent starting point. Because thumbs are backed by real light-DOM inputs, appending the first `<input type="range">` turns an empty group into a single-thumb group, appending a second turns it into a two-thumb group, and removing them walks back down the same path, ending at the empty track rather than at a control that suddenly grows a thumb of its own.
 
 ### Form Association and Naming
@@ -215,7 +213,7 @@ A robust labeling strategy is crucial for users of assistive technologies. We pr
 
 This requires a change to HTML. The [content model of `<legend>`](https://html.spec.whatwg.org/multipage/form-elements.html#the-legend-element) currently allows it only as the first child of `<fieldset>` or of `<optgroup>`; the `<optgroup>` context is itself a recent addition made for customizable `<select>`. We propose extending it the same way, to allow `<legend>` as the first child of `<rangegroup>`. As with `<fieldset>`, only the first `<legend>` child names the group.
 
-Until that change lands, a `<legend>` inside `<rangegroup>` is invalid markup and, in a non-supporting browser, is not associated with anything. Authors who need markup that validates today can wrap the group in a `<fieldset>` and put the `<legend>` there instead; the group is then named through `aria-labelledby` on the `<rangegroup>`. The examples in this explainer use the proposed form. The Lit proof-of-concept keeps the same authoring pattern (`<legend slot="legend">`) but copies the legend's text onto the group's `aria-label`: `aria-labelledby` cannot resolve an IDREF from shadow DOM to light DOM, so the ID-based approach leaves the group unnamed. That is a polyfill limitation, not part of the proposal.
+Until that change lands, a `<legend>` inside `<rangegroup>` is invalid markup and, in a non-supporting browser, is not associated with anything. Authors who need markup that validates today can wrap the group in a `<fieldset>` and put the `<legend>` there instead; the group is then named through `aria-labelledby` on the `<rangegroup>`. The examples in this explainer use the proposed form. 
 
 **Individual Handle Labels:** Each `<input type="range">` within the group should have its own accessible name. This can be provided by wrapping the `<input>` within a `<label>` element (implicit labeling), which is the recommended approach. Alternatively, standard methods like an `aria-label` or `aria-labelledby` attribute on the `<input>` can be used.
 
