@@ -213,7 +213,7 @@ A robust labeling strategy is crucial for users of assistive technologies. We pr
 
 This requires a change to HTML. The [content model of `<legend>`](https://html.spec.whatwg.org/multipage/form-elements.html#the-legend-element) currently allows it only as the first child of `<fieldset>` or of `<optgroup>`; the `<optgroup>` context is itself a recent addition made for customizable `<select>`. We propose extending it the same way, to allow `<legend>` as the first child of `<rangegroup>`. As with `<fieldset>`, only the first `<legend>` child names the group.
 
-Until that change lands, a `<legend>` inside `<rangegroup>` is invalid markup and, in a non-supporting browser, is not associated with anything. Authors who need markup that validates today can wrap the group in a `<fieldset>` and put the `<legend>` there instead; the group is then named through `aria-labelledby` on the `<rangegroup>`. The examples in this explainer use the proposed form. 
+Until that change lands, a `<legend>` inside `<rangegroup>` is invalid markup and, in a non-supporting browser, is not associated with anything. Authors who need markup that validates today can wrap the group in a `<fieldset>` and put the `<legend>` there instead; the group is then named through `aria-labelledby` on the `<rangegroup>`. The examples in this explainer use the proposed form.
 
 **Individual Handle Labels:** Each `<input type="range">` within the group should have its own accessible name. This can be provided by wrapping the `<input>` within a `<label>` element (implicit labeling), which is the recommended approach. Alternatively, standard methods like an `aria-label` or `aria-labelledby` attribute on the `<input>` can be used.
 
